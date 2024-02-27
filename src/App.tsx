@@ -4,6 +4,7 @@ import { Header } from './components/Header'
 import { BreathingCard } from './components/BreathingCard'
 import { InputExerciseSelector } from './components/InputExerciseSelector'
 import { BreathingCardType } from './types/BreathingCardType'
+import { useState } from 'react'
 
 export default function App() {
     const cards:BreathingCardType[] = [
@@ -20,6 +21,22 @@ export default function App() {
             second:0,
         },
     ]    
+    const exercises = [
+        {
+            defaultExercise: {
+                inspiration: 5,
+                holdRespiration: 5,
+                expiration: 20,
+                repeatTimes: 4
+            },
+        },
+    ]
+    const [currentSecond, setCurrentSecond] = useState<number>(0)
+    
+    const startChronometer = () => {
+        setCurrentSecond(currentSecond+1)
+    }
+
     return (
         <>
         <Header/>
@@ -34,7 +51,8 @@ export default function App() {
                 }
             </section>
             <div id="DivButton">
-                <button id="ButtonInit">Iniciar</button>
+                <p>{currentSecond}</p>
+                <button id="ButtonInit" onClick={() => startChronometer()}>Iniciar</button>
                 <button id="ButtonStop" className="hidden">Parar</button>
             </div>
         </main>

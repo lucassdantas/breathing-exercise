@@ -1,4 +1,4 @@
-import { BreathingCardType } from "../types/BreathingCardType";
+import { BreathingCardType } from "../../types/BreathingCardType";
 
 export const cardsInfo:BreathingCardType[] = [
     {

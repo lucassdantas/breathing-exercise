@@ -4,10 +4,12 @@ import { Header } from './components/Header'
 import { InputExerciseSelector } from './components/InputExerciseSelector'
 import { useState } from 'react'
 import { ChronometerController } from './components/ChronometerController'
+import { Exercises } from './types/Exercises'
 
 export default function App() {
-    const [currentSecond, setCurrentSecond] = useState<number>(0)
     const [isChronometerRunning, setIsChronometerRunning] = useState<boolean>(false)
+    const [selectedExercise, setSelectedExercise] = useState<Exercises>()
+    
     const toggleChronometer = () => {
         setIsChronometerRunning(!isChronometerRunning)
     }
@@ -16,12 +18,11 @@ export default function App() {
         <>
         <Header/>
         <main>
-            <InputExerciseSelector/>
+            <InputExerciseSelector selectedExercise={selectedExercise} setSelectedExercise={setSelectedExercise}/>
             <section id="CutDownSection" className="cutdown">
                <ChronometerController isChronometerRunning={isChronometerRunning}/>
             </section>
             <div id="DivButton">
-                <p>{currentSecond}</p>
                 <button id="ButtonInit" onClick={() => toggleChronometer()}>Iniciar</button>
                 <button id="ButtonStop" className="hidden">Parar</button>
             </div>

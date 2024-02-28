@@ -1,4 +1,4 @@
-export interface Exercises  {
+export interface ExercisesType  {
         inspiration: number,
         holdRespiration: number,
         expiration: number,

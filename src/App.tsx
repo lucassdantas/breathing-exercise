@@ -20,7 +20,7 @@ export default function App() {
         <main>
             <InputExerciseSelector selectedExercise={selectedExercise} setSelectedExercise={setSelectedExercise}/>
             <section id="CutDownSection" className="cutdown">
-               <ChronometerController isChronometerRunning={isChronometerRunning} selectedExercise={selectedExercise}/>
+               <ChronometerController isChronometerRunning={isChronometerRunning} setIsChronometerRunning={setIsChronometerRunning} selectedExercise={selectedExercise}/>
             </section>
             <div id="DivButton">
                 <button id="ButtonInit" onClick={() => toggleChronometer()}>Iniciar</button>

@@ -1,55 +1,81 @@
-import { cardsInfo } from '../../lib/cardsInfo'
-import { BreathingCard } from '../BreathingCard'
-import { BreathingCardType } from '../../types/BreathingCardType'
-import { ExercisesType } from '../../types/Exercises'
-import { useEffect } from 'react'
+import { cardsInfo as externalCardsInfo } from '../../lib/cardsInfo';
+import { BreathingCard } from '../BreathingCard';
+import { BreathingCardType } from '../../types/BreathingCardType';
+import { ExercisesType } from '../../types/Exercises';
+import { useEffect, useState } from 'react';
 
-export const ChronometerController = ({isChronometerRunning, selectedExercise}:{isChronometerRunning:boolean, selectedExercise:ExercisesType}) => {
-  
-  const setInitialCardsValue = () => {
-    for(let i = 0; i < cardsInfo.length; i ++){
-      if(i === 0) cardsInfo[i].second = selectedExercise.inspiration
-      if(i === 1) cardsInfo[i].second = selectedExercise.holdRespiration
-      if(i === 2) cardsInfo[i].second = selectedExercise.expiration
-      //if(i > 2) Set custom exercises on the future
-    }
-  }
-  setInitialCardsValue()
-  useEffect(() => {setInitialCardsValue()}, [selectedExercise])
-  
-  const handleSubtractSeconds = () => {
-    for(let i = 0; i < cardsInfo.length; i ++){
-      let currentCardSecond = 0
-
-      if(i === 0) currentCardSecond = selectedExercise.inspiration
-      if(i === 1) currentCardSecond = selectedExercise.holdRespiration
-      if(i === 2) currentCardSecond = selectedExercise.expiration
-
-      for(let i2 = currentCardSecond; i2 > 0; i2--){
-        setTimeout(() => {
-          currentCardSecond-- 
-          cardsInfo[i].second = currentCardSecond
-          
-        }, 1000)
-        console.log(currentCardSecond)
+export const ChronometerController = ({
+  isChronometerRunning,
+  setIsChronometerRunning,
+  selectedExercise
+}: {
+  isChronometerRunning: boolean;
+  setIsChronometerRunning: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedExercise: ExercisesType;
+}) => {
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [currentRepetition, setCurrentRepetition] = useState(0);
+  const [cardsInfo, setCardsInfo] = useState([...externalCardsInfo])
+  useEffect(() => {
+    const setInitialCardsValue = () => {
+      const initialCardsInfo = [...cardsInfo]; // Clonando cardsInfo para evitar mutações diretas
+      for (let i = 0; i < initialCardsInfo.length; i++) {
+        if (i === 0) initialCardsInfo[i].second = selectedExercise.inspiration;
+        if (i === 1) initialCardsInfo[i].second = selectedExercise.holdRespiration;
+        if (i === 2) initialCardsInfo[i].second = selectedExercise.expiration;
+        // if (i > 2) Set custom exercises on the future
       }
-    }
-  }
+      return initialCardsInfo;
+    };
+    
+    const initialCardsInfo = setInitialCardsValue();
+    setCardsInfo(initialCardsInfo);
+  }, [selectedExercise]);
 
+  useEffect(() => {
+    let subtractInterval: NodeJS.Timeout;
+
+    const subtractCardSeconds = () => {
+      setCardsInfo(prevCardsInfo => {
+        const updatedCardsInfo = [...prevCardsInfo]; // Clonando para evitar mutações diretas
+        if (updatedCardsInfo[currentCardIndex].second > 0) {
+          updatedCardsInfo[currentCardIndex].second -= 1;
+        } else {
+          if (currentCardIndex === cardsInfo.length - 1) {
+            // Último card, verificar repetições
+            if (currentRepetition < selectedExercise.repeatTimes) {
+              // Reiniciar cronômetro
+              setCurrentCardIndex(0);
+              setCurrentRepetition(prevRepetition => prevRepetition + 1);
+            } else {
+              // Parar cronômetro
+              setIsChronometerRunning(false);
+              setCurrentRepetition(0); // Reiniciar contagem de repetições
+              setCurrentCardIndex(0); // Reiniciar contagem de cards
+              return [...cardsInfo]; // Retornar estado atual sem modificar
+            }
+          } else {
+            setCurrentCardIndex(prevIndex => prevIndex + 1);
+          }
+        }
+        return updatedCardsInfo;
+      });
+    };
+
+    if (isChronometerRunning) {
+      subtractInterval = setInterval(subtractCardSeconds, 1000);
+    } else {
+      clearInterval(subtractInterval);
+    }
+
+    return () => clearInterval(subtractInterval); // Limpar intervalo quando o componente desmontar ou o cronômetro parar
+  }, [isChronometerRunning, currentCardIndex, currentRepetition]);
 
   return (
     <>
-    {
-        cardsInfo && 
-        cardsInfo.map((card:BreathingCardType) => {
-            return <BreathingCard title={card.title} second={card.second} key={card.title}/>
-        })
-        
-    }
-    {
-      isChronometerRunning && 
-      handleSubtractSeconds()
-    }
+      {cardsInfo.map((card: BreathingCardType) => (
+        <BreathingCard title={card.title} second={card.second} key={card.title} />
+      ))}
     </>
-  )
-}
+  );
+};

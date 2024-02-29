@@ -1,7 +1,7 @@
-import React from 'react'
 import { BreathingCardType } from '../../types/BreathingCardType'
 
 export const BreathingCard = ({title, second}:BreathingCardType) => {
+  console.log(second)
   return (
     <div id="InspiracaoDiv" className="cutdown">
         <h2 className="cutdown-title">{title}</h2>

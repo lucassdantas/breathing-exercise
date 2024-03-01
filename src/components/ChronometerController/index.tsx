@@ -16,9 +16,10 @@ export const ChronometerController = ({
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [currentRepetition, setCurrentRepetition] = useState(0);
   const [cardsInfo, setCardsInfo] = useState([...externalCardsInfo])
+  
   useEffect(() => {
     const setInitialCardsValue = () => {
-      const initialCardsInfo = [...cardsInfo]; // Clonando cardsInfo para evitar mutações diretas
+      const initialCardsInfo = [...cardsInfo]; 
       for (let i = 0; i < initialCardsInfo.length; i++) {
         if (i === 0) initialCardsInfo[i].second = selectedExercise.inspiration;
         if (i === 1) initialCardsInfo[i].second = selectedExercise.holdRespiration;

@@ -42,6 +42,7 @@ export const ChronometerController = ({
       setCardsInfo(prevCardsInfo => {
         const updatedCardsInfo = [...prevCardsInfo]; // Clonando para evitar mutações diretas
         if (updatedCardsInfo[currentCardIndex].second > 0) {
+          console.log(cardsInfo[currentCardIndex].second)
           updatedCardsInfo[currentCardIndex].second -= 1;
         } else {
           if (currentCardIndex === cardsInfo.length - 1) {
@@ -60,6 +61,7 @@ export const ChronometerController = ({
             }
           } else {
             setCurrentCardIndex(prevIndex => prevIndex + 1);
+            updatedCardsInfo[currentCardIndex+1].second -= 1;
           }
         }
         return updatedCardsInfo;

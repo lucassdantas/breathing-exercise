@@ -13,5 +13,12 @@ export const exercises = [
         expiration: 21,
         repeatTimes: 4,
         name:'Primeiro exercício',
-    }
+    },
+    {
+        inspiration: 1,
+        holdRespiration: 1,
+        expiration: 1,
+        repeatTimes: 2,
+        name:'Teste',
+    },
 ]

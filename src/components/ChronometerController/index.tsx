@@ -17,18 +17,17 @@ export const ChronometerController = ({
   const [currentRepetition, setCurrentRepetition] = useState(0);
   const [cardsInfo, setCardsInfo] = useState([...externalCardsInfo])
   
+  const setInitialCardsValue = () => {
+    const initialCardsInfo = [...cardsInfo]; 
+    for (let i = 0; i < initialCardsInfo.length; i++) {
+      if (i === 0) initialCardsInfo[i].second = selectedExercise.inspiration;
+      if (i === 1) initialCardsInfo[i].second = selectedExercise.holdRespiration;
+      if (i === 2) initialCardsInfo[i].second = selectedExercise.expiration;
+      // if (i > 2) Set custom exercises on the future
+    }
+    return initialCardsInfo;
+  };
   useEffect(() => {
-    const setInitialCardsValue = () => {
-      const initialCardsInfo = [...cardsInfo]; 
-      for (let i = 0; i < initialCardsInfo.length; i++) {
-        if (i === 0) initialCardsInfo[i].second = selectedExercise.inspiration;
-        if (i === 1) initialCardsInfo[i].second = selectedExercise.holdRespiration;
-        if (i === 2) initialCardsInfo[i].second = selectedExercise.expiration;
-        // if (i > 2) Set custom exercises on the future
-      }
-      return initialCardsInfo;
-    };
-    
     const initialCardsInfo = setInitialCardsValue();
     setCardsInfo(initialCardsInfo);
   }, [selectedExercise]);
@@ -47,6 +46,7 @@ export const ChronometerController = ({
             if (currentRepetition < selectedExercise.repeatTimes) {
               // Reiniciar cronômetro
               setCurrentCardIndex(0);
+              setInitialCardsValue()
               setCurrentRepetition(prevRepetition => prevRepetition + 1);
             } else {
               // Parar cronômetro

@@ -17,14 +17,17 @@ export const ChronometerController = ({
   const [currentRepetition, setCurrentRepetition] = useState(1);
   const [cardsInfo, setCardsInfo] = useState([...externalCardsInfo])
   
-  const setInitialExerciseState = () => {
-    const initialCardsInfo = [...cardsInfo]; 
-    for (let i = 0; i < initialCardsInfo.length; i++) {
-      if (i === 0) initialCardsInfo[i].second = selectedExercise.inspiration;
-      if (i === 1) initialCardsInfo[i].second = selectedExercise.holdRespiration;
-      if (i === 2) initialCardsInfo[i].second = selectedExercise.expiration;
+  const setInitialCardsSeconds = (cards:BreathingCardType[]) => {
+    for (let i = 0; i < cards.length; i++) {
+      if (i === 0) cards[i].second = selectedExercise.inspiration;
+      if (i === 1) cards[i].second = selectedExercise.holdRespiration;
+      if (i === 2) cards[i].second = selectedExercise.expiration;
       // if (i > 2) Set custom exercises on the future
     }
+  }
+  const setInitialExerciseState = () => {
+    const initialCardsInfo = [...cardsInfo]; 
+    setInitialCardsSeconds(initialCardsInfo)
     setIsChronometerRunning(false);
     setCurrentRepetition(0); 
     setCurrentCardIndex(0); 
@@ -41,29 +44,29 @@ export const ChronometerController = ({
     const subtractCardSeconds = () => {
       setCardsInfo(prevCardsInfo => {
         const updatedCardsInfo = [...prevCardsInfo]; // Clonando para evitar mutações diretas
-        if (updatedCardsInfo[currentCardIndex].second > 0) {
-          console.log(cardsInfo[currentCardIndex].second)
-          updatedCardsInfo[currentCardIndex].second -= 1;
-        } else {
           if (currentCardIndex === cardsInfo.length - 1) {
             // Último card, verificar repetições
             if (currentRepetition < selectedExercise.repeatTimes) {
               // Reiniciar cronômetro
               setCurrentCardIndex(0);
-              setInitialExerciseState()
+              setInitialCardsSeconds(updatedCardsInfo)
               setCurrentRepetition(prevRepetition => prevRepetition + 1);
             } else {
               // Parar cronômetro
               setIsChronometerRunning(false);
               setCurrentRepetition(0); // Reiniciar contagem de repetições
               setCurrentCardIndex(0); // Reiniciar contagem de cards
+              setInitialExerciseState()
               return [...cardsInfo]; // Retornar estado atual sem modificar
             }
           } else {
-            setCurrentCardIndex(prevIndex => prevIndex + 1);
-            updatedCardsInfo[currentCardIndex+1].second -= 1;
+            if(updatedCardsInfo[currentCardIndex].second > 0) {
+              updatedCardsInfo[currentCardIndex].second -= 1;
+            }else {
+              setCurrentCardIndex(prevIndex => prevIndex + 1);
+              updatedCardsInfo[currentCardIndex+1].second -= 1;
+            }
           }
-        }
         return updatedCardsInfo;
       });
     };

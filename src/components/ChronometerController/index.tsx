@@ -44,7 +44,7 @@ export const ChronometerController = ({
     const subtractCardSeconds = () => {
       setCardsInfo(prevCardsInfo => {
         const updatedCardsInfo = [...prevCardsInfo]; // Clonando para evitar mutações diretas
-          if (currentCardIndex === cardsInfo.length - 1) {
+          if (currentCardIndex === cardsInfo.length - 1 && updatedCardsInfo[currentCardIndex].second === 1) {
             // Último card, verificar repetições
             if (currentRepetition < selectedExercise.repeatTimes) {
               // Reiniciar cronômetro
@@ -53,9 +53,6 @@ export const ChronometerController = ({
               setCurrentRepetition(prevRepetition => prevRepetition + 1);
             } else {
               // Parar cronômetro
-              setIsChronometerRunning(false);
-              setCurrentRepetition(0); // Reiniciar contagem de repetições
-              setCurrentCardIndex(0); // Reiniciar contagem de cards
               setInitialExerciseState()
               return [...cardsInfo]; // Retornar estado atual sem modificar
             }

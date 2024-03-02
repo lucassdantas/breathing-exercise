@@ -20,7 +20,7 @@ export const exercises = [
         inspiration: 2,
         holdRespiration: 2,
         expiration: 2,
-        repeatTimes: 2,
+        repeatTimes: 4,
         incrementQuantityPerRepetition:1,
         name:'Teste',
     },

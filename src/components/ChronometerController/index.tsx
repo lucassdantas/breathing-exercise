@@ -24,6 +24,7 @@ export const ChronometerController = ({
       if (i === 2) cards[i].second = selectedExercise.expiration + incrementQuantity;
       // if (i > 2) Set custom exercises on the future
     }
+    return cards
   }
   const setInitialExerciseState = () => {
     const initialCardsInfo = [...cardsInfo]; 
@@ -43,15 +44,14 @@ export const ChronometerController = ({
 
     const subtractCardSeconds = () => {
       setCardsInfo(prevCardsInfo => {
-        const updatedCardsInfo = [...prevCardsInfo]; // Clonando para evitar mutações diretas
+        let updatedCardsInfo = [...prevCardsInfo]; // Clonando para evitar mutações diretas
           if (currentCardIndex === cardsInfo.length - 1 && updatedCardsInfo[currentCardIndex].second === 1) {
             // Último card, verificar repetições
             if (currentRepetition < selectedExercise.repeatTimes) {
               // Reiniciar cronômetro
               setCurrentCardIndex(0);
-              setInitialCardsSeconds(updatedCardsInfo, selectedExercise.incrementQuantityPerRepetition)
               setCurrentRepetition(prevRepetition => prevRepetition + 1);
-              console.log(updatedCardsInfo)
+              return updatedCardsInfo = setInitialCardsSeconds(updatedCardsInfo, selectedExercise.incrementQuantityPerRepetition)
             } else {
               // Parar cronômetro
               setInitialExerciseState()

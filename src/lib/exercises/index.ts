@@ -4,6 +4,7 @@ export const exercises = [
         holdRespiration: 5,
         expiration: 20,
         repeatTimes: 4,
+        incrementQuantityPerRepetition:1,
         name:'Exerício padrão',
     },
     
@@ -12,6 +13,7 @@ export const exercises = [
         holdRespiration: 4,
         expiration: 21,
         repeatTimes: 4,
+        incrementQuantityPerRepetition:0,
         name:'Primeiro exercício',
     },
     {
@@ -19,6 +21,7 @@ export const exercises = [
         holdRespiration: 2,
         expiration: 2,
         repeatTimes: 2,
+        incrementQuantityPerRepetition:1,
         name:'Teste',
     },
 ]

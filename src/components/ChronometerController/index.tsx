@@ -17,17 +17,17 @@ export const ChronometerController = ({
   const [currentRepetition, setCurrentRepetition] = useState(1);
   const [cardsInfo, setCardsInfo] = useState([...externalCardsInfo])
   
-  const setInitialCardsSeconds = (cards:BreathingCardType[]) => {
+  const setInitialCardsSeconds = (cards:BreathingCardType[], incrementQuantity:number) => {
     for (let i = 0; i < cards.length; i++) {
-      if (i === 0) cards[i].second = selectedExercise.inspiration;
-      if (i === 1) cards[i].second = selectedExercise.holdRespiration;
-      if (i === 2) cards[i].second = selectedExercise.expiration;
+      if (i === 0) cards[i].second = selectedExercise.inspiration + incrementQuantity;
+      if (i === 1) cards[i].second = selectedExercise.holdRespiration + incrementQuantity;
+      if (i === 2) cards[i].second = selectedExercise.expiration + incrementQuantity;
       // if (i > 2) Set custom exercises on the future
     }
   }
   const setInitialExerciseState = () => {
     const initialCardsInfo = [...cardsInfo]; 
-    setInitialCardsSeconds(initialCardsInfo)
+    setInitialCardsSeconds(initialCardsInfo, 0)
     setIsChronometerRunning(false);
     setCurrentRepetition(0); 
     setCurrentCardIndex(0); 
@@ -49,8 +49,9 @@ export const ChronometerController = ({
             if (currentRepetition < selectedExercise.repeatTimes) {
               // Reiniciar cronômetro
               setCurrentCardIndex(0);
-              setInitialCardsSeconds(updatedCardsInfo)
+              setInitialCardsSeconds(updatedCardsInfo, selectedExercise.incrementQuantityPerRepetition)
               setCurrentRepetition(prevRepetition => prevRepetition + 1);
+              console.log(updatedCardsInfo)
             } else {
               // Parar cronômetro
               setInitialExerciseState()
@@ -71,6 +72,7 @@ export const ChronometerController = ({
     if (isChronometerRunning) {
       subtractInterval = setInterval(subtractCardSeconds, 1000);
     } else {
+      setInitialExerciseState()
       clearInterval(subtractInterval);
     }
 

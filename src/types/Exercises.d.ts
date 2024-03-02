@@ -3,5 +3,6 @@ export interface ExercisesType  {
         holdRespiration: number,
         expiration: number,
         repeatTimes: number,
+        incrementQuantityPerRepetition:number,
         name:string,
 }

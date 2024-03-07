@@ -1,4 +1,5 @@
 export type BreathingCardType = {
     title:string, 
-    second:number
+    second:number,
+    isActive:boolean,
 }

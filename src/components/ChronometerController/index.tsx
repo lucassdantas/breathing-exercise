@@ -51,7 +51,7 @@ export const ChronometerController = ({
               // Reiniciar cronômetro
               setCurrentCardIndex(0);
               setCurrentRepetition(prevRepetition => prevRepetition + 1);
-              return updatedCardsInfo = setInitialCardsSeconds(updatedCardsInfo, selectedExercise.incrementQuantityPerRepetition)
+              return updatedCardsInfo = setInitialCardsSeconds(updatedCardsInfo, selectedExercise.incrementQuantityPerRepetition * (currentRepetition+1))
             } else {
               // Parar cronômetro
               setInitialExerciseState()

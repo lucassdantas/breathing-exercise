@@ -1,5 +1,6 @@
+import { CardState } from "./CardState"
 export type BreathingCardType = {
     title:string, 
     second:number,
-    isActive:boolean,
+    currentState:CardState,
 }

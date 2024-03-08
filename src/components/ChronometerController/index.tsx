@@ -3,6 +3,7 @@ import { BreathingCard } from '../BreathingCard';
 import { BreathingCardType } from '../../types/BreathingCardType';
 import { ExercisesType } from '../../types/Exercises';
 import { useEffect, useState } from 'react';
+import { CardState } from '../../types/CardState';
 
 export const ChronometerController = ({
   isChronometerRunning,
@@ -28,6 +29,9 @@ export const ChronometerController = ({
   }
   const setInitialExerciseState = () => {
     const initialCardsInfo = [...cardsInfo]; 
+    initialCardsInfo.forEach((card:BreathingCardType) => {
+      card.currentState = CardState.Initial
+    })
     setInitialCardsSeconds(initialCardsInfo, 0)
     setIsChronometerRunning(false);
     setCurrentRepetition(0); 
@@ -44,25 +48,24 @@ export const ChronometerController = ({
 
     const subtractCardSeconds = () => {
       setCardsInfo(prevCardsInfo => {
-        let updatedCardsInfo = [...prevCardsInfo]; // Clonando para evitar mutações diretas
+        let updatedCardsInfo = [...prevCardsInfo]; 
           if (currentCardIndex === cardsInfo.length - 1 && updatedCardsInfo[currentCardIndex].second === 1) {
-            // Último card, verificar repetições
             if (currentRepetition < selectedExercise.repeatTimes) {
-              // Reiniciar cronômetro
               setCurrentCardIndex(0);
               setCurrentRepetition(prevRepetition => prevRepetition + 1);
               return updatedCardsInfo = setInitialCardsSeconds(updatedCardsInfo, selectedExercise.incrementQuantityPerRepetition * (currentRepetition+1))
             } else {
-              // Parar cronômetro
               setInitialExerciseState()
-              return [...cardsInfo]; // Retornar estado atual sem modificar
+              return [...cardsInfo]; 
             }
           } else {
             if(updatedCardsInfo[currentCardIndex].second > 0) {
               updatedCardsInfo[currentCardIndex].second -= 1;
             }else {
-              setCurrentCardIndex(prevIndex => prevIndex + 1);
+              updatedCardsInfo[currentCardIndex].currentState = CardState.Deactivated
+              updatedCardsInfo[currentCardIndex+1].currentState = CardState.Active
               updatedCardsInfo[currentCardIndex+1].second -= 1;
+              setCurrentCardIndex(prevIndex => prevIndex + 1);
             }
           }
         return updatedCardsInfo;
@@ -70,19 +73,24 @@ export const ChronometerController = ({
     };
 
     if (isChronometerRunning) {
+      cardsInfo.forEach((card:BreathingCardType, i:number) => {
+        card.currentState = CardState.Deactivated
+        if(i === 0) card.currentState = CardState.Active
+      })
+      
       subtractInterval = setInterval(subtractCardSeconds, 1000);
     } else {
       setInitialExerciseState()
       clearInterval(subtractInterval);
     }
 
-    return () => clearInterval(subtractInterval); // Limpar intervalo quando o componente desmontar ou o cronômetro parar
+    return () => clearInterval(subtractInterval); 
   }, [isChronometerRunning, currentCardIndex, currentRepetition]);
 
   return (
     <>
       {cardsInfo.map((card: BreathingCardType) => (
-        <BreathingCard title={card.title} second={card.second} key={card.title} />
+        <BreathingCard title={card.title} second={card.second} currentState={card.currentState} key={card.title} />
       ))}
     </>
   );

@@ -1,0 +1,23 @@
+#ExerciseSelectorDiv{
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items:center;
+
+    width:100vw;
+    height:100px;
+}
+
+#ExerciseSelectorDiv label{
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+#ExerciseSelectorDiv select{
+    height:30px;
+    width:190px;
+    font-size:16px;
+    border-radius:12px;
+    padding:4px 6px;
+
+}

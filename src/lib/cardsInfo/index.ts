@@ -4,16 +4,16 @@ export const cardsInfo:BreathingCardType[] = [
     {
         title:"Inspire por: ",
         second:0,
-        isActive:true,
+        currentState:'initial',
     },
     {
         title:"Segure por: ",
         second:0,
-        isActive:true,
+        currentState:'initial',
     },
     {
         title:"Expire por: ",
         second:0,
-        isActive:true,
+        currentState:'initial',
     },
 ]  

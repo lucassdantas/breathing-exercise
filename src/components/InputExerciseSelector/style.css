@@ -26,3 +26,9 @@
     border: 1px solid #AAA;
     color: #555;
 }
+
+@media(max-width:930px){
+    #exerciseSelectorDiv select{
+        font-size:14px;
+    }
+}

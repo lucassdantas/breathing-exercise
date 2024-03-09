@@ -10,6 +10,8 @@
     border-radius:100%;
     text-align:center;
     -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+
+    font-size:24px;
     
 }
 
@@ -26,10 +28,10 @@
 }
 
 
-.breathingCard .breathingCardTitle{
-    font-size:24px;
-}
-
-.breathingCard .breathingCardSecond{
-    font-size:24px;
+@media(max-width:930px){
+    .breathingCard{
+        width:150px;
+        height:150px;
+        font-size:18px;
+    }
 }

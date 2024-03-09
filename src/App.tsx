@@ -10,6 +10,7 @@ import { exercises } from './lib/exercises'
 export default function App() {
     const [isChronometerRunning, setIsChronometerRunning] = useState<boolean>(false)
     const [selectedExercise, setSelectedExercise] = useState<ExercisesType>(exercises[0])
+    
     const toggleChronometer = () => {
         setIsChronometerRunning(!isChronometerRunning)
     }
@@ -19,11 +20,9 @@ export default function App() {
         <Header/>
         <main>
             <InputExerciseSelector selectedExercise={selectedExercise} setSelectedExercise={setSelectedExercise}/>
-            <section id="CutDownSection" className="cutdown">
-               <ChronometerController isChronometerRunning={isChronometerRunning} setIsChronometerRunning={setIsChronometerRunning} selectedExercise={selectedExercise}/>
-            </section>
-            <div id="DivButton">
-                <button id="ButtonInit" onClick={() => toggleChronometer()}>{isChronometerRunning? 'Parar':'Iniciar'}</button>
+            <ChronometerController isChronometerRunning={isChronometerRunning} setIsChronometerRunning={setIsChronometerRunning} selectedExercise={selectedExercise}/>
+            <div id="divButton">
+                <button id="initButton" onClick={() => toggleChronometer()}>{isChronometerRunning? 'Parar':'Iniciar'}</button>
             </div>
         </main>
         <Footer/>

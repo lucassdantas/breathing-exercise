@@ -4,6 +4,7 @@ import { BreathingCardType } from '../../types/BreathingCardType';
 import { ExercisesType } from '../../types/Exercises';
 import { useEffect, useState } from 'react';
 import { CardState } from '../../types/CardState';
+import './style.css'
 
 export const ChronometerController = ({
   isChronometerRunning,
@@ -88,10 +89,10 @@ export const ChronometerController = ({
   }, [isChronometerRunning, currentCardIndex, currentRepetition]);
 
   return (
-    <>
+    <section id="cardsSection" className="cardsSection">
       {cardsInfo.map((card: BreathingCardType) => (
         <BreathingCard title={card.title} second={card.second} currentState={card.currentState} key={card.title} />
       ))}
-    </>
+    </section>
   );
 };

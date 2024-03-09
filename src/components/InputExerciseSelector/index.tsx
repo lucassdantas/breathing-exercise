@@ -11,9 +11,9 @@ export const InputExerciseSelector = ({selectedExercise, setSelectedExercise}:{s
   }  
   
   return (
-    <div id="ExerciseSelectorDiv">
-        <label id="ExerciseSelectorLabel">Selecione seu exercício</label>
-        <select name="ExerciseSelector" id="ExerciseSelector" className="ExerciseSelector" onChange={(e) => handleSelectExercise(e)}>
+    <div id="exerciseSelectorDiv">
+        <label id="exerciseSelectorLabel">Selecione seu exercício</label>
+        <select name="exerciseSelector" id="exerciseSelector" className="exerciseSelector" onChange={(e) => handleSelectExercise(e)}>
           {
             exercises && 
             exercises.map((exercise:ExercisesType, i:number) => <option value={i}>{exercise.name}</option>)

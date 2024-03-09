@@ -1,4 +1,33 @@
+.breathingCard{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+
+    height:250px;
+    width:250px;
+    border-radius:100%;
+    text-align:center;
+    
+}
+
+.initial{
+    background-color:#ffcc00;
+}
+.active{
+    background-color:#00eeff;
+}
+
 .deactivated{
     background-color:'#333';
     color:'#555';
+}
+
+
+.breathingCard .breathingCardTitle{
+    font-size:24px;
+}
+
+.breathingCard .breathingCardSecond{
+    font-size:24px;
 }

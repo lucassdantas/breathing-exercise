@@ -1,0 +1,9 @@
+#cardsSection{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:64px;
+    
+    width:100%;
+    margin-top:32px;
+}

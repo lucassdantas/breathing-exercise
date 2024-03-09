@@ -4,6 +4,7 @@
     justify-content:center;
     flex-direction:column;
 
+    border:1px solid #555;
     height:250px;
     width:250px;
     border-radius:100%;
@@ -12,10 +13,10 @@
 }
 
 .initial{
-    background-color:#00eeff;
+    background-color:#EEFFFF;
 }
 .active{
-    background-color:#ffcc00;
+    background-color:var(--blue);
 }
 
 .deactivated{

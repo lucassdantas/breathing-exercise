@@ -9,12 +9,39 @@
 body{
     overflow-x:hidden;
     color:#1E1E1E;
+    background-color:#FEFEFE;
 }
 
-body, input, select{
+body, input, select, button{
     font-family: 'Poppins', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     font-smooth: inherit;
+}
+
+#divInitButton{
+    width:100%;
+    text-align:center;
+    margin-top:32px;
+}
+
+#initButton{
+    width:120px;
+    font-size: 18px;
+    padding:2px;
+    border-radius:2px;
+    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #AAA;
+    
+    color: #555;
+    background-color:#FFF;
+    transition: all 0.4s;
+    
+}
+
+#initButton:hover{
+    cursor:pointer;
+    background-color: #00eeff;
+    border-color: #00eeff;
 }

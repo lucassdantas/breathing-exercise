@@ -21,7 +21,7 @@ export default function App() {
         <main>
             <InputExerciseSelector selectedExercise={selectedExercise} setSelectedExercise={setSelectedExercise}/>
             <ChronometerController isChronometerRunning={isChronometerRunning} setIsChronometerRunning={setIsChronometerRunning} selectedExercise={selectedExercise}/>
-            <div id="divButton">
+            <div id="divInitButton">
                 <button id="initButton" onClick={() => toggleChronometer()}>{isChronometerRunning? 'Parar':'Iniciar'}</button>
             </div>
         </main>

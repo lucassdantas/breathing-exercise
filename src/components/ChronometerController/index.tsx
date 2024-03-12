@@ -57,12 +57,13 @@ export const ChronometerController = ({
     const subtractCardSeconds = () => {
       setCardsInfo(prevCardsInfo => {
         let updatedCardsInfo = [...prevCardsInfo]; 
-          if (currentCardIndex === cardsInfo.length - 1 && updatedCardsInfo[currentCardIndex].second === 1) {
+          if (currentCardIndex === cardsInfo.length - 1 && updatedCardsInfo[currentCardIndex].second === 0) {
             if (currentRepetition < selectedExercise.repeatTimes) {
               setCurrentCardIndex(0);
               setActiveCard(updatedCardsInfo, 0)
               setCurrentRepetition(prevRepetition => prevRepetition + 1);
-              return updatedCardsInfo = setInitialCardsSeconds(updatedCardsInfo, selectedExercise.incrementQuantityPerRepetition * (currentRepetition+1))
+              updatedCardsInfo = setInitialCardsSeconds(updatedCardsInfo, selectedExercise.incrementQuantityPerRepetition * (currentRepetition+1))
+              updatedCardsInfo[0].second -= 1
             } else {
               setInitialExerciseState()
               return [...cardsInfo]; 

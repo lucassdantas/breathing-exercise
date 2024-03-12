@@ -2,7 +2,6 @@ import React, { ChangeEvent } from 'react'
 import { ExercisesType } from '../../types/Exercises'
 import { exercises } from '../../lib/exercises'
 import './style.css'
-
 export const InputExerciseSelector = ({selectedExercise, setSelectedExercise}:{selectedExercise:ExercisesType, setSelectedExercise:React.Dispatch<React.SetStateAction<ExercisesType>>}) => {
   
   const handleSelectExercise = (e:ChangeEvent<HTMLSelectElement>) => {

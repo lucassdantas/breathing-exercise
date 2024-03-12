@@ -70,7 +70,7 @@ export const ChronometerController = ({
             }
           } else {
             if(updatedCardsInfo[currentCardIndex].second > 0) {
-              if(currentRepetition === 0 && updatedCardsInfo[currentCardIndex].second === selectedExercise.inspiration) setActiveCard(updatedCardsInfo, 0)
+              if(currentRepetition === 0 && updatedCardsInfo[currentCardIndex].second === selectedExercise.inspiration && currentCardIndex === 0) setActiveCard(updatedCardsInfo, 0)
               updatedCardsInfo[currentCardIndex].second -= 1;
             }else {
               setActiveCard(updatedCardsInfo, currentCardIndex+1)
@@ -86,7 +86,7 @@ export const ChronometerController = ({
       subtractInterval = setInterval(subtractCardSeconds, 1000);
     } else {
       setInitialExerciseState()
-      clearInterval(subtractInterval);
+      clearInterval(subtractInterval); 
     }
 
     return () => clearInterval(subtractInterval); 

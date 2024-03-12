@@ -58,6 +58,6 @@ body, input, select, button{
 @media(max-width:930px){
     #initButton{
         font-size:16px;
-        margin-top:42px;
+        margin-top:4px;
     }
 }

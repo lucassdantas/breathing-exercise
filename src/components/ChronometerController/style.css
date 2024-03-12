@@ -12,5 +12,7 @@
 @media(max-width:620px){
     #cardsSection{
         flex-direction:column;
+        gap:18px;
+        margin-top:16px;
     }
 }

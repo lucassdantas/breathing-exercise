@@ -19,7 +19,7 @@
     background-color:#FFF;
 }
 .active{
-    background-color:var(--blue);
+    background-color:var(--whiteBlue);
 }
 
 .deactivated{

@@ -28,6 +28,13 @@ export const ChronometerController = ({
     }
     return cards
   }
+
+  const setActiveCard = (cards:BreathingCardType[], index:number) => {
+    cards.forEach((card:BreathingCardType, i:number) => {
+      card.currentState = CardState.Deactivated
+      if(i === index) card.currentState = CardState.Active
+    })
+  }
   const setInitialExerciseState = () => {
     const initialCardsInfo = [...cardsInfo]; 
     initialCardsInfo.forEach((card:BreathingCardType) => {
@@ -53,6 +60,7 @@ export const ChronometerController = ({
           if (currentCardIndex === cardsInfo.length - 1 && updatedCardsInfo[currentCardIndex].second === 1) {
             if (currentRepetition < selectedExercise.repeatTimes) {
               setCurrentCardIndex(0);
+              setActiveCard(updatedCardsInfo, 0)
               setCurrentRepetition(prevRepetition => prevRepetition + 1);
               return updatedCardsInfo = setInitialCardsSeconds(updatedCardsInfo, selectedExercise.incrementQuantityPerRepetition * (currentRepetition+1))
             } else {
@@ -63,8 +71,7 @@ export const ChronometerController = ({
             if(updatedCardsInfo[currentCardIndex].second > 0) {
               updatedCardsInfo[currentCardIndex].second -= 1;
             }else {
-              updatedCardsInfo[currentCardIndex].currentState = CardState.Deactivated
-              updatedCardsInfo[currentCardIndex+1].currentState = CardState.Active
+              setActiveCard(updatedCardsInfo, currentCardIndex+1)
               updatedCardsInfo[currentCardIndex+1].second -= 1;
               setCurrentCardIndex(prevIndex => prevIndex + 1);
             }
@@ -74,11 +81,6 @@ export const ChronometerController = ({
     };
 
     if (isChronometerRunning) {
-      cardsInfo.forEach((card:BreathingCardType, i:number) => {
-        card.currentState = CardState.Deactivated
-        if(i === 0) card.currentState = CardState.Active
-      })
-      
       subtractInterval = setInterval(subtractCardSeconds, 1000);
     } else {
       setInitialExerciseState()

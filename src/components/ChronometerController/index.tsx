@@ -69,6 +69,7 @@ export const ChronometerController = ({
             }
           } else {
             if(updatedCardsInfo[currentCardIndex].second > 0) {
+              if(currentRepetition === 0 && updatedCardsInfo[currentCardIndex].second === selectedExercise.inspiration) setActiveCard(updatedCardsInfo, 0)
               updatedCardsInfo[currentCardIndex].second -= 1;
             }else {
               setActiveCard(updatedCardsInfo, currentCardIndex+1)
